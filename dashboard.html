@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Your Feed</title>
+  <meta charset="UTF-8">
+  <meta name="Swimy Feed Page" content="Feed Page">
+  <link rel="stylesheet" href="dashboard.css">
+  <script defer type='module' src="dashboard.js"></script>
+  <link rel="icon" href="SWIMMYicon.png">
+</head>
+
+<body>
+    <!-- A <div> with two buttons inside -->
+    <div class="button_bar">
+        <!-- Creates two buttons (a settings and create post) with images inside -->
+        <button id="settings_modal_button" class="bar_button"><img class="button_img" src="settingsicon.ico"></button>
+        <button id="post_modal_button" class="bar_button"><img class="button_img" src="posticon.ico"></button>
+    </div>
+
+    <h1 id="feed_title">Hey ____, Here Is Your Feed!</h1>
+    <div id="post_container"></div>
+    <p id="bottom_of_page">This is a simple website made to learn JS, HTML, and CSS. 
+        This page was desgined to be viewed on a phone screen and was
+        made using GitHub Pages and Firebase Storage.
+    </p>
+
+    <!-- A <div> containing all the parts to the create post modal -->
+    <div id="createPostModal" class="modal">
+        <div id="createPostModal_header">
+            <div id="createPostModal_header_title">Create a Post to Share with Friends!</div>
+            <button id="createPostModal_header_closeButton", data-close-button>&times;</button>
+        </div>
+
+        <div id="createPostModal_body">
+            <input id="createPostModal_body_fileInput", type="file", name="filename", accept="image/jpeg image/png image/jpg">
+            <input id="createPostModal_body_captionInput", placeholder="Caption">
+            <button id="createPostModal_body_submitButton", type="button">Post</button>
+        </div>
+    </div>
+
+    <!-- A <div> containing all the parts to the settings modal -->
+    <div id="settingsModal" class="modal">
+        <div id="settingsModal_header">
+            <div id="settingsModal_header_title">Settings</div>
+            <button id="settingsModal_header_closeButton", data-close-button>&times;</button>
+        </div>
+        <div id="settingsModal_body">
+            <div id="settingsModal_body_body">
+                <input id="settingsModal_body_usernameInput", placeholder="Username"><br>
+                <input id="settingsModal_body_passwordInput", placeholder="Password"><br>
+                <input id="settingsModal_body_emailInput", placeholder="Email"><br>
+
+                <label>Make Account Private</label>
+                <input type="checkbox" id="settingsModal_body_isPrivateBox" value="isPrivate"><br>
+                <label>AccountType:</label>
+                    <select id="settingsModal_body_accountDrodown">
+                        <option value="swimmer">Swimmer</option>
+                        <option value="coach">Coach</option>
+                        <option value="team">Team</option>
+                    </select><br>
+
+                <input id="settingsModal_body_pfpInput", type="file", name="filename", accept="image/jpeg image/png image/jpg"><br>
+                <input id="settingsModal_body_bioInput", placeholder="Bio">
+            </div>
+            <div id="settingsModal_body_footer">
+                <button id="settingsModal_body_submitButton", type="button">Update Settings</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- A solid <div> used as a transparent background when modals are opened -->
+    <div id="overlay"></div>
+</body>

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Swimy Login Page</title>
+        <meta charset="UTF-8">
+        <meta name="Swimy Login Page" content="Login Page">
+        <!-- css  goes here <link rel="stylesheet" type="text/css" href="style-sheets/signUpStyleSheet.css"> //-->
+        <!-- icon goes here <link rel="icon" href=""> //-->
+    </head>
+    <body>
+        <h1>Login</h1>
+        <form class="sign_up_block">
+            <input id="username_Input", placeholder="Username">
+            <input id="password_Input", placeholder="Password">
+            <button id="submit_button", type="button">Login</button>
+            <a id="sing_up_link", href="signup.html">Sign Up Here</a>
+        </form>
+    </body>
+</html>
+<script type="module">
+    //Imports needed modules
+    import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.4.0/firebase-app.js';
+    import { getDatabase, get, ref, set, child, update } from 'https://www.gstatic.com/firebasejs/9.4.0/firebase-database.js';
+    //Connects to Firebase
+    const firebaseConfig = {
+        apiKey: "AIzaSyCzLcD82RAxaptD4VfpRW2pshlQgX_FvMw",
+        authDomain: "swimchat-8d634.firebaseapp.com",
+        databaseURL: "https://swimchat-8d634-default-rtdb.firebaseio.com",
+        projectId: "swimchat-8d634",
+        storageBucket: "swimchat-8d634.appspot.com",
+        messagingSenderId: "49158591781",
+        appId: "1:49158591781:web:78c29ebcea31315a6636cc",
+        measurementId: "G-11FCRKVE3D"
+    };
+    //Gets database refrences
+    const app = initializeApp(firebaseConfig);
+    const db = getDatabase();
+    const dbRef = ref(getDatabase());
+
+    const temp_user = localStorage.getItem('User');
+    const temp_pass = localStorage.getItem('Pass');
+    if ((temp_user != null) && (temp_pass != null)) {
+        get(child(dbRef, 'user_reference/' + temp_user)).then((snapshot) => {
+            if (snapshot.exists())  {
+                const user_id = snapshot.val().UID
+                get(child(dbRef, 'users/' + user_id)).then((snapshot) => {
+                    if (snapshot.val().password == temp_pass){
+                        if (confirm('Would you like to sign in as ' + temp_user)) {
+                            localStorage.setItem("UID", user_id);
+                            window.location = "dashboard.html";
+                        }
+                    } else {
+                        window.alert("Password is not valid. Please login manually.")
+                    }
+                })
+            } else {
+                window.alert("User does not exist. Please login manually.")
+            }
+        })
+    }
+
+    submit_button.onclick = function loginUser(){
+        const username = document.getElementById("username_Input").value;
+        const password = document.getElementById("password_Input").value;
+
+        get(child(dbRef, 'user_reference/' + username)).then((snapshot) => {
+            if (snapshot.exists())  {
+                const user_id = snapshot.val().UID
+                get(child(dbRef, 'users/' + user_id)).then((snapshot) => {
+                    if (snapshot.val().password == password){
+                        localStorage.setItem("UID", user_id);
+                        localStorage.setItem("User", username);
+                        localStorage.setItem("Pass", snapshot.val().password);
+                        window.location = "dashboard.html";
+                    } else {
+                        window.alert("Password is not valid.")
+                    }
+                })
+            } else {
+                window.alert("User does not exist.")
+            }
+        })
+
+    }
+
+</script>

@@ -1,0 +1,196 @@
+/* General Page Adjustments */
+body{
+    margin:0px;
+}
+@font-face {
+    font-family: mainfont;
+    src: url(font2.ttf);
+}
+  
+/* Bottem Bar Adjustments */
+.button_bar{
+    /* Sets the object to the very bottom of the screen */
+    bottom:1%;
+    /* Makes the object take up the entire bottom and 12% of the screens height */
+    height:12%;
+    width: 100%;
+    /* Locks the obeject to this place */
+    position: fixed;
+}
+.button_img{
+    /* Makes image take up 100% of the height */
+    height:100%;
+    /* Because icon is a square, width is equal to the height */
+    width: 100%;
+}
+.bar_button{
+    /* Hides the defult button */
+    border:none;
+    background-color: rgba(0,0,0,0);
+    /* Makes the button take up full height and auto-adjuested width */
+    height:100%;
+    width: auto;
+    /* Moves buttons to the right side with a small margin inbetween */
+    margin-right:1%;
+    float: right;
+}
+  
+
+
+/* All Post Adjustments */
+.post{
+    /* Sets the width to 35% of the screen */
+    /* Creates a marign of 32% on the left side */
+    margin-left: 2%;
+    width:96%;
+    /* Sets the background color to a cool blue */
+    background-color: rgb(20,171,209);
+}
+.post_author, .post_date{
+    display: inline;
+    font-family: mainfont;
+}
+.post_author{
+    margin-left: 2%;
+    margin-right: 2%;
+    font-size: 2rem;
+}
+.post_date{
+    font-size: 0.5rem;
+}
+.post_img{
+    margin-left:2%;
+    width:96%;
+}
+.caption{
+    margin-top: 2%;
+    margin-bottom: 3%;
+    margin-left:2%;
+    padding-bottom: 3%;
+    width:96%;
+    font-family: mainfont;
+    font-size: 0.75rem;
+}
+
+
+
+
+
+#feed_title{
+    margin-top: 1%;
+    margin-left:auto;
+    margin-right:auto;
+    text-align: center;
+
+    width:600px;
+    font-family: mainfont;
+    font-size: 2.1rem;
+}
+#bottom_of_page{
+    margin-left:5%;
+    text-align: left;
+
+    width:50%;
+    font-family: mainfont;
+    font-size: auto;
+}
+  
+
+
+  
+  
+  
+  
+  
+  
+.bottom_of_page{
+    margin-bottom:7%;
+}
+
+
+.modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    transition: 200ms ease-in-out;
+    border: 1px solid black;
+    border-radius: 10px;
+    z-index: 10;
+    background-color: white;
+    width: 800px;
+    max-width: 80%;
+}
+.modal.active{
+    transform: translate(-50%, -50%) scale(1);
+}
+/*     Black Overlay     */
+#overlay {
+    position: fixed;
+    opacity: 0;
+    transition: 200ms ease-in-out;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0,0,0,.5);
+    pointer-events: none;
+}
+#overlay.active {
+    opacity: 1;
+    pointer-events: all;
+}
+
+/*     Create Post Modal     */
+    /*     Create Post Modal Header     */
+#createPostModal_header{
+    padding: 10px 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid black;
+}
+#createPostModal_header_title {
+    font-size: 1.75rem;
+    font-weight: bold;
+    font-family: 'Lucida Sans Unicode';
+}
+#createPostModal_header_closeButton {
+    cursor: pointer;
+    border: none;
+    outline: none;
+    background: none;
+    font-size: 1.75rem;
+    font-weight: bold;
+}
+    /*     Create Post Modal Body     */
+#createPostModal_body{
+    padding: 10px 15px;
+}
+
+/*     Settings Modal     */
+    /*     Settings Modal Header     */
+    #settingsModal_header{
+        padding: 10px 15px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 1px solid black;
+    }
+    #settingsModal_header_title {
+        font-size: 1.75rem;
+        font-weight: bold;
+        font-family: 'Lucida Sans Unicode';
+    }
+    #settingsModal_header_closeButton {
+        cursor: pointer;
+        border: none;
+        outline: none;
+        background: none;
+        font-size: 1.75rem;
+        font-weight: bold;
+    }
+        /*     Settings Modal Body     */
+    #settingsModal_body{
+        padding: 10px 15px;
+    }

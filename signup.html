@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Swimy Sign Up</title>
+        <meta charset="UTF-8">
+        <meta name="Swimy Sign Up Page" content="Sign Up Page">
+        <!-- css  goes here <link rel="stylesheet" type="text/css" href="style-sheets/signUpStyleSheet.css"> //-->
+        <!-- icon goes here <link rel="icon" href=""> //-->
+    </head>
+    <body>
+        <h1>Sign Up</h1>
+        <form class="sign_up_block">
+            <input id="username_Input", placeholder="Username">
+            <input id="email_Input", placeholder="Email">
+            <input id="password_Input", placeholder="Password">
+            <button id="submit_button", type="button">Create my Account</button>
+            <a id="login_link", href="login.html">Login Here</a>
+        </form>
+    </body>
+</html>
+<script type="module">
+    //Imports needed modules
+    import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.4.0/firebase-app.js';
+    import { getDatabase, get, ref, set, child, update } from 'https://www.gstatic.com/firebasejs/9.4.0/firebase-database.js';
+    //Connects to Firebase
+    const firebaseConfig = {
+        apiKey: "AIzaSyCzLcD82RAxaptD4VfpRW2pshlQgX_FvMw",
+        authDomain: "swimchat-8d634.firebaseapp.com",
+        databaseURL: "https://swimchat-8d634-default-rtdb.firebaseio.com",
+        projectId: "swimchat-8d634",
+        storageBucket: "swimchat-8d634.appspot.com",
+        messagingSenderId: "49158591781",
+        appId: "1:49158591781:web:78c29ebcea31315a6636cc",
+        measurementId: "G-11FCRKVE3D"
+    };
+    //Gets database refrences
+    const app = initializeApp(firebaseConfig);
+    const db = getDatabase();
+    const dbRef = ref(getDatabase());
+
+    submit_button.onclick = function createNewUser(){
+        const username = document.getElementById("username_Input").value;
+
+        var is_name_valid = true;
+        var invalid_characters = ".#$[] "
+        for (let i = 0; i < invalid_characters.length; i++){
+            if (username.includes(invalid_characters[i])){
+                is_name_valid = false;
+            }
+        }
+        if (is_name_valid == true){
+            //Checks to see if account already exists in '/allUsers'
+            get(child(dbRef, 'user_reference/' + username)).then((snapshot) => {
+                if (snapshot.exists())  {
+                    //If it does, alerts the user
+                    window.alert("Account Username Already Exists")
+                } else {
+                    //If it dosen't, calls the 'createNewUser' function
+                    const email = document.getElementById("email_Input").value;
+                    const password = document.getElementById("password_Input").value;
+
+                    if (email.includes("@")) {
+                        get(child(dbRef, '/dataBaseInfo/createdUsers')).then((snapshot) => {
+                            var new_total = snapshot.val() + 1;
+                            var date = new Date();
+                            var newUID = (1001 + new_total) + ("0" + (date.getMonth() + 1)).slice(-2) + ("0" + date.getDate()).slice(-2) + (date.getFullYear()).toString().substr(-2) +  + ("0" + date.getHours()).slice(-2) + ("0" + date.getMinutes()).slice(-2);
+                            update(ref(db, '/dataBaseInfo'), {
+                                createdUsers: new_total
+                            })
+                            set(ref(db, 'user_reference/' + username), {
+                                UID: newUID
+                            })
+                            set(ref(db, 'users/' + newUID), {
+                                UID: newUID,
+                                accountType: "swimmer",
+                                bio: "",
+                                email: email,
+                                isPrivate: false,
+                                password: password,
+                                username: username
+                            })
+                            localStorage.setItem("UID", newUID);
+                            localStorage.setItem("User", username);
+                            localStorage.setItem("Pass", password);
+                            window.location = "dashboard.html";
+                        })
+                    } else {
+                        window.alert("Email is invalid.")
+                    }
+            }});
+        } else {
+            window.alert("Username is invalid. Username cannot contain '.', '#', '$', '[', or ']'")
+        }
+    }
+</script>
